@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { UploaderComponent } from './uploader/uploader.component';
+import { FilesService } from './files.service';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { UploaderComponent } from './uploader/uploader.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    FilesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

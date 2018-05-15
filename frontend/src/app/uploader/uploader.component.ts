@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+
+import { FilesService } from '../files.service';
 
 @Component({
   selector: 'app-uploader',
@@ -14,7 +15,7 @@ export class UploaderComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _http: HttpClient
+    private _service: FilesService
   ) {
     this._createForm();
   }
@@ -38,13 +39,11 @@ export class UploaderComponent implements OnInit {
 
   onSubmit() {
     const values = this.theForm.value;
-    const formData = new FormData(this.theForm.value);
-    formData.append('name', values.name);
     if (this.files && this.files.length > 0) {
-      formData.append('image', this.files[0], this.files[0].name);
+      values.image = this.files[0];
     }
-    this._http
-      .post('http://localhost:8000/api/1.0/files/', formData)
+    this._service
+      .uploadFile(values)
       .subscribe(response => {
         console.log('saved!', response);
         alert('Saved!');
