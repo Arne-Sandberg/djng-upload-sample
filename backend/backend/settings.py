@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # avoid CORS error while send API calls from angular to localhost
+    'corsheaders',
+
     'rest_framework',
     'uploader',
 ]
@@ -45,6 +48,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # avoid CORS error while send API calls from angular to localhost
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -129,3 +134,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+# avoid CORS error while send API calls from angular to localhost
+# see ref. https://www.techiediaries.com/django-angular-cli/
+CORS_ORIGIN_ALLOW_ALL = True
