@@ -14,8 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from uploader.api import UploadedFileListCreateAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # for browseable API login/logout
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/1.0/files/', UploadedFileListCreateAPIView.as_view(), name='api_uploaded_files'),
 ]

@@ -42,7 +42,9 @@ git clone git@github.com:tonybolanyo/djng-upload-sample.git
 ```
 
 To run the backend, create a virtual environment, install dependencies
-using `pip` and run the development server.
+using `pip` and run the development server. On first run you should
+apply all migrations and create a (super)user. All POST calls are protected
+(by default).
 
 ```
 cd djng-upload-sample
@@ -50,8 +52,15 @@ virtualenv env
 source ./env/bin/activate
 pip install -r requirements.txt
 cd backend
+python manage.py migrate
+python manage.py createsuperuser
 python manage.py runserver
 ```
+
+API endpoint to test the upload function can be accessed at:
+
+http://localhost:8000/api/1.0/files/
+
 
 To run the frontend, install dependencies using `npm` and
 use `ng` client to serve the application.
