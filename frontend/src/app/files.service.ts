@@ -2,8 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UploadFile } from './upload-file';
 
+import { environment } from '../environments/environment';
+
 @Injectable()
 export class FilesService {
+
+  private _endpoint: string = `${environment.apiBaseUrl}/files/`;
 
   constructor(private _http: HttpClient) { }
 
@@ -14,7 +18,7 @@ export class FilesService {
       formData.append('image', file.image, file.image.name);
     }
     return this._http
-      .post('http://localhost:8000/api/1.0/files/', formData)
+      .post(this._endpoint, formData)
 
   }
 }
